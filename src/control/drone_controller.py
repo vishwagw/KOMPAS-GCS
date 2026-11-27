@@ -17,15 +17,17 @@ class FlightMode(Enum):
 
 class DroneController:
     """High-level drone control interface"""
-    
-    def __init__(self, connection):
+
+    def __init__(self, connection, telemetry_logger=None):
         """
         Initialize drone controller
-        
+
         Args:
             connection: DroneConnection instance
+            telemetry_logger: TelemetryLogger instance for flight logging
         """
         self.connection = connection
+        self.telemetry_logger = telemetry_logger
         self.logger = logging.getLogger(__name__)
         
         self.is_flying = False
@@ -105,10 +107,12 @@ class DroneController:
                 self.is_flying = True
                 self.current_mode = FlightMode.TAKEOFF
                 self.logger.info("Takeoff successful")
-                
+
                 # Wait for stabilization
                 time.sleep(3.0)
                 self.current_mode = FlightMode.MANUAL
+                if self.telemetry_logger:
+                    self.telemetry_logger.start_logging()
                 return True
             else:
                 self.logger.error(f"Takeoff failed: {response}")
@@ -138,6 +142,8 @@ class DroneController:
                 self.current_mode = FlightMode.LAND
                 self.current_altitude = 0
                 self.logger.info("Landing successful")
+                if self.telemetry_logger:
+                    self.telemetry_logger.stop_logging()
                 return True
             else:
                 self.logger.error(f"Landing failed: {response}")
@@ -157,13 +163,15 @@ class DroneController:
         try:
             self.emergency_stop_active = True
             self.logger.warning("EMERGENCY STOP ACTIVATED")
-            
+
             response = self.connection.send_command("emergency", timeout=2.0)
-            
+
             self.is_flying = False
             self.current_mode = FlightMode.LAND
             self.current_altitude = 0
-            
+            if self.telemetry_logger:
+                self.telemetry_logger.stop_logging()
+
             return True
             
         except Exception as e:
@@ -427,6 +435,11 @@ class DroneController:
         if 'speed_total' in parsed:
             self.ground_speed = parsed['speed_total']
         
+        # Always log before checking landing: the current packet may contain
+        # the final altitude value (e.g. 0) that must be captured in the CSV.
+        if self.telemetry_logger:
+            self.telemetry_logger.log_telemetry(parsed)
+
         altitude = parsed.get('altitude')
         if altitude is not None and altitude <= 5 and self.current_mode != FlightMode.TAKEOFF:
             if self._on_ground_since is None:
@@ -435,6 +448,8 @@ class DroneController:
                 self.logger.warning("Drone reports it is on the ground - marking as landed")
                 self.is_flying = False
                 self.current_mode = FlightMode.LAND
+                if self.telemetry_logger:
+                    self.telemetry_logger.stop_logging()
         else:
             self._on_ground_since = None
     

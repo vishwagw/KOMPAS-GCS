@@ -50,6 +50,7 @@ hud:
 
 logging:
   level: "INFO"                     # DEBUG, INFO, WARNING, ERROR, CRITICAL
+  save_flight_csv: true
 
 advanced:
   enable_debug_mode: false

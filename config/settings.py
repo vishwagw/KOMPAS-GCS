@@ -81,6 +81,7 @@ DEFAULT_CONFIG: Dict[str, Any] = {
     },
     "logging": {
         "level": "INFO",
+        "save_flight_csv": True,
     },
     "advanced": {
         "enable_debug_mode": False,
@@ -298,6 +299,10 @@ class ConfigManager:
         level = self.get("logging.level")
         if not (isinstance(level, str) and level.upper() in LOG_LEVELS):
             errors.append(f"logging.level must be one of {', '.join(LOG_LEVELS)}, got {level!r}")
+
+        save_csv = self.get("logging.save_flight_csv")
+        if not isinstance(save_csv, bool):
+            errors.append(f"logging.save_flight_csv must be true or false, got {save_csv!r}")
 
         return errors
 
