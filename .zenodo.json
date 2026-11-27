@@ -1,0 +1,25 @@
+{
+  "upload_type": "software",
+  "title": "KOMPAS GCS: Safety-gated ground control station and protocol-level simulator for commodity WiFi drones",
+  "description": "<p>KOMPAS is an open-source Python ground control station (GCS) for low-cost WiFi quadrotors that use a Tello-SDK-style text protocol over UDP. It adds what these aircraft lack: a serialised command link with an out-of-band emergency stop, a pre-flight gate of eight checks (including a live command-link probe) that blocks takeoff on any failure, and an in-flight safety monitor whose automatic actions may only land the aircraft, never cut its motors. A built-in simulator speaks the same wire protocol as the aircraft, with fault injection for link loss, one-way links, low battery and tilted ground, so the full GCS can be run and tested without hardware.</p>",
+  "creators": [
+    {
+      "name": "GW, Vishwa",
+      "affiliation": "Independent AI Researcher, Galle, Sri Lanka",
+      "orcid": "0009-0003-5050-4063"
+    }
+  ],
+  "license": "Apache-2.0",
+  "access_right": "open",
+  "keywords": [
+    "ground control station",
+    "unmanned aerial vehicles",
+    "drones",
+    "Tello SDK",
+    "UDP",
+    "safety monitoring",
+    "pre-flight checklist",
+    "software-in-the-loop simulation",
+    "Python"
+  ]
+}
