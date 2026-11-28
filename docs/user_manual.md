@@ -273,6 +273,33 @@ safety:
 - **WARNING**: Potential issues
 - **ERROR**: Operation failures
 
+### Flight logs
+
+Every flight is saved to a CSV file automatically while you fly.
+
+**Where the files go:**
+- `logs/flight_YYYYMMDD_HHMMSS.csv` (a `_N` suffix is added if a file with that name already exists)
+- A new file opens when the drone takes off and closes when it lands or is emergency-stopped.
+
+**Columns** (from `src/utils/telemetry_logger.py`):
+
+| Column | Unit |
+|---|---|
+| `timestamp_iso` | ISO 8601 timestamp |
+| `timestamp_epoch` | seconds (Unix epoch) |
+| `battery` | percent |
+| `altitude` | cm |
+| `speed_x`, `speed_y`, `speed_z` | cm/s |
+| `speed_total` | cm/s |
+| `pitch`, `roll`, `yaw` | degrees |
+| `acceleration_x`, `acceleration_y`, `acceleration_z` | g |
+| `barometer` | raw sensor reading |
+| `time_of_flight` | cm |
+| `motor_time` | seconds |
+| `temperature`, `temperature_low` | Celsius |
+
+**Turn it off:** set `logging.save_flight_csv: false` in `config/drone_config.yaml`.
+
 ## Troubleshooting
 
 ### Connection Issues

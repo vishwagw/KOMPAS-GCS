@@ -27,6 +27,7 @@ controllable platforms that anyone can build autonomy on top of.
 - **Safety monitor**: low-battery, flight-time and link-loss responses that land, never cut motors
 - **Flight simulator**: the full stack against a simulated drone on your machine
 - **Docker image**: run the GUI headless and reach it from a browser (noVNC)
+- **Flight logs**: per-flight telemetry CSV written automatically from takeoff to landing
 
 ## Supported hardware
 
