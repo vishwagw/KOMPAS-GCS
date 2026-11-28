@@ -4,6 +4,8 @@
 
 **An open-source ground control station for commodity WiFi RC drones.**
 
+📄 **Paper v1:*KOMPAS: An Open-Source, Safety-Gated Ground Control Station for Commodity WiFi RC Drones* [https://doi.org/10.5281/zenodo.24576399)
+
 KOMPAS connects to a low-cost WiFi drone over UDP and gives you a desktop
 ground station for it: flight control, live telemetry, a camera feed with a
 HUD overlay, video recording, a pre-flight checklist that gates takeoff, and
