@@ -180,6 +180,10 @@ print(f"Max altitude: {summary['flight_stats']['altitude']['max']} cm")
 print(f"Battery used: {summary['flight_stats']['battery']['start'] - summary['flight_stats']['battery']['end']}%")
 ```
 
+> **Note:** `export_telemetry_csv` exports telemetry from a screen recording, after the flight.
+> KOMPAS also writes a per-flight CSV automatically during the flight (see **Flight logs** in the
+> user manual); the two files are produced differently.
+
 ## 🎯 HUD Customization
 
 ### Color Schemes
