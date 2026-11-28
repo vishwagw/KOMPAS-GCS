@@ -267,6 +267,8 @@ safety:
 - Automatic rotation when files get large
 - Timestamped entries for debugging
 
+- Flight CSVs can be charted with `python tools/plot_flight.py logs/flight_YYYYMMDD_HHMMSS.csv` (see `requirements-dev.txt` for the plotting dependency)
+
 **Log Levels:**
 - **DEBUG**: Detailed operation info
 - **INFO**: General operations
